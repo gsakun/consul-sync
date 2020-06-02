@@ -9,11 +9,11 @@ import (
 
 // Service define struct use for parse httprequest
 type Service struct {
-	ID      string            `json:"id"`
-	Name    string            `json:"name"`
-	Port    int               `json:"port"`
-	Tags    map[string]string `json:"tags"`
-	Address string            `json:"address"`
+	ID      string                 `json:"id"`
+	Name    string                 `json:"name"`
+	Port    int                    `json:"port"`
+	Tags    map[string]interface{} `json:"tags"`
+	Address string                 `json:"address"`
 }
 
 // InitClient use for init consulagent client
@@ -29,37 +29,34 @@ func InitClient(consuladdress string) (client *consulapi.Client, err error) {
 }
 
 // ConsulRegister use for register service to consul
-func ConsulRegister(services []*Service, client *consulapi.Client) error {
-	for _, service := range services {
-		registration := new(consulapi.AgentServiceRegistration)
-		registration.ID = service.ID
-		registration.Name = service.Name
-		registration.Port = service.Port
-		var tags []string
-		if len(service.Tags) != 0 {
-			for key, value := range service.Tags {
-				tag := fmt.Sprintf("%s=%s", key, value)
-				tags = append(tags, tag)
-			}
+func ConsulRegister(services *Service, client *consulapi.Client) error {
+	registration := new(consulapi.AgentServiceRegistration)
+	registration.ID = service.ID
+	registration.Name = service.Name
+	registration.Port = service.Port
+	var tags []string
+	if len(service.Tags) != 0 {
+		for key, value := range service.Tags {
+			tag := fmt.Sprintf("%s=%s", key, value)
+			tags = append(tags, tag)
 		}
-		registration.Tags = tags
-		registration.Address = service.Address
-		err := client.Agent().ServiceRegister(registration)
-		if err != nil {
-			log.Errorf("Registry service %v failed", service)
-		}
+	}
+	registration.Tags = tags
+	registration.Address = service.Address
+	err := client.Agent().ServiceRegister(registration)
+	if err != nil {
+		log.Errorf("Registry service %v failed", service)
+		return err
 	}
 	return nil
 }
 
 // ConsulDeRegister use for DeRegister service
-func ConsulDeRegister(services []string, client *consulapi.Client) error {
-
-	for _, service := range services {
-		err := client.Agent().ServiceDeregister(service)
-		if err != nil {
-			log.Errorf("Deregistry service %s failed", service)
-		}
+func ConsulDeRegister(services string, client *consulapi.Client) error {
+	err := client.Agent().ServiceDeregister(service)
+	if err != nil {
+		log.Errorf("Deregistry service %s failed", service)
+		return err
 	}
 	return nil
 }

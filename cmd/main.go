@@ -76,12 +76,21 @@ func main() {
 	kingpin.Parse()
 
 	go func() {
-		var db *sql.DB
-		db, err := DBInit(*dbaddress, *maxidle, *maxconn)
+		db, err := sql.Open("mysql", dbaddress)
 		if err != nil {
-			log.Errorf("Init db connection failed %v", err)
+			log.Fatalln("open db fail:", err)
+			time.Sleep(60 * time.Second)
+		}
+
+		db.SetMaxIdleConns(maxidle)
+		db.SetMaxOpenConns(maxconn)
+
+		err = db.Ping()
+		if err != nil {
+			log.Errorf("ping db fail:", err)
 			time.Sleep(60 * time.Second)
 		} else {
+			log.Infoln("START DATA SYNC")
 
 			time.Sleep(time.Duration(*interval) * time.Second)
 		}
@@ -96,21 +105,4 @@ func main() {
 
 	select {}
 
-}
-
-func DBInit(database string, maxidle, maxconn int) (db *sql.DB, err error) {
-	db, err = sql.Open("mysql", database)
-	if err != nil {
-		log.Fatalln("open db fail:", err)
-	}
-
-	db.SetMaxIdleConns(maxidle)
-	db.SetMaxOpenConns(maxconn)
-
-	err = db.Ping()
-	if err != nil {
-		log.Fatalf("ping db fail:", err)
-		return err
-	}
-	return nil
 }
