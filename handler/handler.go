@@ -10,7 +10,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func syncdata(db *sql.DB, client *consulapi.Client) {
+// Syncdata use for sync mysql machine table data to consul
+func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 	sql := "select hostname, ip, labels,monitor from machine where monitor != 1"
 	rows, err := db.Query(sql)
 	if err != nil {
@@ -27,55 +28,69 @@ func syncdata(db *sql.DB, client *consulapi.Client) {
 			err = rows.Scan(&hostname, &ip, &labels, &monitor)
 			if err != nil {
 				log.Errorf("ERROR: %v", err)
+				errnum++
 				continue
 			}
 			if monitor == 0 {
-				service := new(consul.Service)
-				service.ID = fmt.Sprintf("%s-%s", hostname, ip)
-				var m map[string]interface{}
-				err = json.Unmarshal([]byte(labels), &m)
-				port, ok := m["port"]
-				if ok {
-					service.Port = port.(int)
-				} else {
-					service.Port = 9100
-				}
-				service.Tags = m
-				service.Address = ip
-				err := consul.ConsulRegister(service)
+				err := register(hostname, ip, labels, monitor, db, client)
 				if err != nil {
-					return err
-				} else {
-					stmt, err := db.Prepare(`UPDATE machine set monitor=1 where ip=?`)
-					if err != nil {
-						log.Errorf("Update prepare err %v", err)
-						return err
-					}
-					_, err = stmt.Exec(ip)
-					if err != nil {
-						log.Errorf("Update exec err %v", err)
-						return err
-					}
+					log.Errorf("Register %s failed errinfo %v", err)
+					errnum++
 				}
-			}else{
+			} else {
 				serviceid := fmt.Sprintf("%s-%s", hostname, ip)
-				err := consul.ConsulFindServer(serviceid)
+				err := consul.ConsulFindServer(serviceid, client)
 				if err != nil {
-					
-				}else{
-					err := consul.ConsulDeRegister(serviceid)
+					err := register(hostname, ip, labels, monitor, db, client)
 					if err != nil {
-						log.Errorf("Deregister service %s failed",serviceid)
-						continue
-					}else{
-
+						log.Errorf("Register %s failed errinfo %v", err)
+						errnum++
+					}
+				} else {
+					err := consul.ConsulDeRegister(serviceid, client)
+					if err != nil {
+						log.Errorf("Deregister service %s failed", serviceid)
+						errnum++
+					} else {
+						err := register(hostname, ip, labels, monitor, db, client)
+						if err != nil {
+							log.Errorf("Register %s failed errinfo %v", err)
+						}
 					}
 				}
 			}
-
 		}
+		log.Infof("sync machineinfo success")
 	}
-	log.Infof("sync datacenter table success %v", DataCentermap)
+	return errnum, err
 }
 
-func 
+func register(hostname, ip, labels string, monitor int, db *sql.DB, client *consulapi.Client) error {
+	service := new(consul.Service)
+	service.ID = fmt.Sprintf("%s-%s", hostname, ip)
+	var m map[string]interface{}
+	err := json.Unmarshal([]byte(labels), &m)
+	port, ok := m["port"]
+	if ok {
+		service.Port = port.(int)
+	} else {
+		service.Port = 9100
+	}
+	service.Tags = m
+	service.Address = ip
+	err = consul.ConsulRegister(service, client)
+	if err != nil {
+		return err
+	}
+	stmt, err := db.Prepare(`UPDATE machine set monitor=1 where ip=?`)
+	if err != nil {
+		log.Errorf("Update prepare err %v", err)
+		return err
+	}
+	_, err = stmt.Exec(ip)
+	if err != nil {
+		log.Errorf("Update exec err %v", err)
+		return err
+	}
+	return nil
+}

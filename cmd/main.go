@@ -1,17 +1,18 @@
 package main
 
 import (
-	"database/sql"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/gsakun/consul-sync/consul"
+	"github.com/gsakun/consul-sync/db"
+	"github.com/gsakun/consul-sync/handler"
 	colorable "github.com/mattn/go-colorable"
 	log "github.com/sirupsen/logrus"
 	"github.com/snowzach/rotatefilehook"
-	kingpin "gopkg.in/alecthomas/kingpin.v2"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 func init() {
@@ -29,10 +30,10 @@ func init() {
 		log.Infoln("log level is normal")
 	}
 	rotateFileHook, err := rotatefilehook.NewRotateFileHook(rotatefilehook.RotateFileConfig{
-		Filename:   "logs/alarmtransfer.log",
+		Filename:   "logs/consul-sync.log",
 		MaxSize:    50, // megabytes
 		MaxBackups: 3,
-		MaxAge:     28, //days
+		MaxAge:     5, //days
 		Level:      logLevel,
 		Formatter: &log.JSONFormatter{
 			TimestampFormat: "2006-01-02 15:04:05",
@@ -76,23 +77,27 @@ func main() {
 	kingpin.Parse()
 
 	go func() {
-		db, err := sql.Open("mysql", dbaddress)
+		db, err := db.Init(dbaddress, maxconn, maxidle)
 		if err != nil {
-			log.Fatalln("open db fail:", err)
-			time.Sleep(60 * time.Second)
-		}
-
-		db.SetMaxIdleConns(maxidle)
-		db.SetMaxOpenConns(maxconn)
-
-		err = db.Ping()
-		if err != nil {
-			log.Errorf("ping db fail:", err)
+			log.Errorf("ping db fail:%v", err)
 			time.Sleep(60 * time.Second)
 		} else {
+			defer db.Close()
 			log.Infoln("START DATA SYNC")
-
-			time.Sleep(time.Duration(*interval) * time.Second)
+			client, err := consul.InitClient(*consuladdress)
+			if err != nil {
+				time.Sleep(60 * time.Second)
+			} else {
+				errnum, err := handler.Syncdata(db, client)
+				if err != nil {
+					time.Sleep(60 * time.Second)
+				} else {
+					if errnum == 0 {
+						time.Sleep(time.Duration(*interval) * time.Second)
+					}
+					time.Sleep(60 * time.Second)
+				}
+			}
 		}
 	}()
 
@@ -102,7 +107,5 @@ func main() {
 		<-sigs
 		os.Exit(0)
 	}()
-
 	select {}
-
 }

@@ -1,4 +1,4 @@
-package main
+package consul
 
 import (
 	"fmt"
@@ -29,7 +29,7 @@ func InitClient(consuladdress string) (client *consulapi.Client, err error) {
 }
 
 // ConsulRegister use for register service to consul
-func ConsulRegister(services *Service, client *consulapi.Client) error {
+func ConsulRegister(service *Service, client *consulapi.Client) error {
 	registration := new(consulapi.AgentServiceRegistration)
 	registration.ID = service.ID
 	registration.Name = service.Name
@@ -52,7 +52,7 @@ func ConsulRegister(services *Service, client *consulapi.Client) error {
 }
 
 // ConsulDeRegister use for DeRegister service
-func ConsulDeRegister(services string, client *consulapi.Client) error {
+func ConsulDeRegister(service string, client *consulapi.Client) error {
 	err := client.Agent().ServiceDeregister(service)
 	if err != nil {
 		log.Errorf("Deregistry service %s failed", service)
