@@ -2,26 +2,24 @@ package db
 
 import (
 	"database/sql"
-	// Register some standard stuff
-	_ "github.com/go-sql-driver/mysql"
+
 	log "github.com/sirupsen/logrus"
 )
 
-//DB Initializes global variables
-var DB *sql.DB
-
 // Init init db connection
-func Init(dbaddress string, maxconn, maxidle int) {
-	var err error
-	DB, err = sql.Open("mysql", dbaddress)
+func Init(dbaddress string, maxconn, maxidle int) (db *sql.DB, err error) {
+	db, err = sql.Open("mysql", dbaddress)
 	if err != nil {
-		log.Fatalf("open db fail:", err)
+		log.Errorf("open db fail:", err)
+		return nil, err
 	}
 
-	DB.SetMaxIdleConns(maxidle)
-	DB.SetMaxOpenConns(maxconn)
-	err = DB.Ping()
+	db.SetMaxIdleConns(maxidle)
+	db.SetMaxOpenConns(maxconn)
+	err = db.Ping()
 	if err != nil {
-		log.Fatalf("ping db fail:", err)
+		log.Errorf("ping db fail:", err)
+		return nil, err
 	}
+	return db, err
 }

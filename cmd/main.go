@@ -6,6 +6,7 @@ import (
 	"syscall"
 	"time"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gsakun/consul-sync/consul"
 	"github.com/gsakun/consul-sync/db"
 	"github.com/gsakun/consul-sync/handler"
@@ -77,7 +78,7 @@ func main() {
 	kingpin.Parse()
 
 	go func() {
-		db, err := db.Init(dbaddress, maxconn, maxidle)
+		db, err := db.Init(*dbaddress, *maxconn, *maxidle)
 		if err != nil {
 			log.Errorf("ping db fail:%v", err)
 			time.Sleep(60 * time.Second)
