@@ -54,10 +54,12 @@ func ConsulRegister(service *Service, client *consulapi.Client) error {
 
 // ConsulDeRegister use for DeRegister service
 func ConsulDeRegister(service string, client *consulapi.Client) error {
-	err := client.Agent().ServiceDeregister(service)
-	if err != nil {
-		log.Errorf("Deregistry service %s failed", service)
-		return err
+	for i := 1; i < 4; i++ {
+		err := client.Agent().ServiceDeregister(service)
+		if err != nil {
+			log.Errorf("Deregistry service %s failed", service)
+			return err
+		}
 	}
 	return nil
 }

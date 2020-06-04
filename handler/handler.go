@@ -64,7 +64,7 @@ func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 				}
 			} else if monitor == 3 {
 				serviceid := md5V3(fmt.Sprintf("%s-%s", hostname, ip))
-				log.Infof("Service id is %s", serviceid)
+				log.Infof("Service id is %s,Deregister it", serviceid)
 				err := consul.ConsulDeRegister(serviceid, client)
 				if err != nil {
 					log.Errorf("Deregister service %s failed", serviceid)
