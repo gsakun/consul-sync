@@ -43,9 +43,10 @@ func ConsulRegister(service *Service, client *consulapi.Client) error {
 	}
 	registration.Tags = tags
 	registration.Address = service.Address
+	log.Infoln(registration)
 	err := client.Agent().ServiceRegister(registration)
 	if err != nil {
-		log.Errorf("Registry service %v failed", service)
+		log.Errorf(" %v failed,errinfo %v", registration, err)
 		return err
 	}
 	return nil

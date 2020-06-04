@@ -49,6 +49,7 @@ func init() {
 		TimestampFormat: "2006-01-02 15:04:05",
 		ForceColors:     true,
 	})
+	log.SetReportCaller(true)
 	log.AddHook(rotateFileHook)
 }
 
@@ -84,11 +85,12 @@ func main() {
 			time.Sleep(60 * time.Second)
 		} else {
 			defer db.Close()
-			log.Infoln("START DATA SYNC")
+			log.Infoln("START SYNC")
 			client, err := consul.InitClient(*consuladdress)
 			if err != nil {
 				time.Sleep(60 * time.Second)
 			} else {
+				log.Infoln("Init client success")
 				errnum, err := handler.Syncdata(db, client)
 				if err != nil {
 					time.Sleep(60 * time.Second)

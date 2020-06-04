@@ -1,9 +1,11 @@
 package handler
 
 import (
+	"crypto/md5"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io"
 
 	"github.com/gsakun/consul-sync/consul"
 	consulapi "github.com/hashicorp/consul/api"
@@ -13,6 +15,7 @@ import (
 // Syncdata use for sync mysql machine table data to consul
 func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 	sql := "select hostname, ip, labels,monitor from machine where monitor != 1"
+	log.Infoln(sql)
 	rows, err := db.Query(sql)
 	if err != nil {
 		log.Errorf("Query machine table Failed")
@@ -31,19 +34,21 @@ func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 				errnum++
 				continue
 			}
+			log.Infof("%s-%s-%s-%d", hostname, ip, labels, monitor)
 			if monitor == 0 {
+				log.Infoln("Start register %s-%s", hostname, ip)
 				err := register(hostname, ip, labels, monitor, db, client)
 				if err != nil {
-					log.Errorf("Register %s failed errinfo %v", err)
+					log.Errorf("Register %s-%s failed errinfo %v", hostname, ip, err)
 					errnum++
 				}
 			} else {
-				serviceid := fmt.Sprintf("%s-%s", hostname, ip)
+				serviceid := md5V3(fmt.Sprintf("%s-%s", hostname, ip))
 				err := consul.ConsulFindServer(serviceid, client)
 				if err != nil {
 					err := register(hostname, ip, labels, monitor, db, client)
 					if err != nil {
-						log.Errorf("Register %s failed errinfo %v", err)
+						log.Errorf("Register %s-%s failed errinfo %v", hostname, ip, err)
 						errnum++
 					}
 				} else {
@@ -67,7 +72,8 @@ func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 
 func register(hostname, ip, labels string, monitor int, db *sql.DB, client *consulapi.Client) error {
 	service := new(consul.Service)
-	service.ID = fmt.Sprintf("%s-%s", hostname, ip)
+	service.ID = md5V3(fmt.Sprintf("%s-%s", hostname, ip))
+	service.Name = fmt.Sprintf("%s-%s", hostname, ip)
 	var m map[string]interface{}
 	err := json.Unmarshal([]byte(labels), &m)
 	port, ok := m["port"]
@@ -78,6 +84,7 @@ func register(hostname, ip, labels string, monitor int, db *sql.DB, client *cons
 	}
 	service.Tags = m
 	service.Address = ip
+	log.Infoln(*service)
 	err = consul.ConsulRegister(service, client)
 	if err != nil {
 		return err
@@ -93,4 +100,11 @@ func register(hostname, ip, labels string, monitor int, db *sql.DB, client *cons
 		return err
 	}
 	return nil
+}
+
+func md5V3(str string) string {
+	w := md5.New()
+	io.WriteString(w, str)
+	md5str := fmt.Sprintf("%x", w.Sum(nil))
+	return md5str
 }

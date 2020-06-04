@@ -1,0 +1,99 @@
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 17:35:34"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 17:35:34"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 17:35:34"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 17:35:34"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 17:38:04"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed,errinfo Unexpected response code: 400 (Missing service name)","time":"2020-06-03 17:38:04"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 17:38:04"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 17:38:04"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 17:38:42"}
+{"level":"error","msg":"Registry service \u0026{ test1-172.16.10.10  [role=test test=test] 9100 172.16.10.10 map[] false map[] \u003cnil\u003e \u003cnil\u003e [] \u003cnil\u003e \u003cnil\u003e } failed,errinfo Unexpected response code: 400 (Missing service name)","time":"2020-06-03 17:38:42"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 17:38:42"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 17:38:42"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:12:06"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:12:06"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:12:06"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:12:06"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:17:51"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:17:51"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:17:51"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:17:51"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:18:44"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:18:44"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:18:44"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:18:44"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:19:53"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:19:53"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:19:53"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:19:53"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:21:11"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:21:11"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:21:11"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:21:11"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:22:57"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:22:57"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:22:57"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:22:57"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:24:56"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:24:56"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:24:56"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:24:56"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:26:05"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:26:05"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:26:05"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:26:05"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:27:24"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:27:24"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:27:24"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:27:24"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:27:43"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:27:43"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:27:43"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:27:43"}
+{"level":"info","msg":"START DATA SYNC","time":"2020-06-03 18:28:32"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:28:32"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:28:32"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:28:32"}
+{"level":"info","msg":"START SYNC","time":"2020-06-03 18:29:00"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:29:00"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:29:00"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:29:00"}
+{"level":"info","msg":"START SYNC","time":"2020-06-03 18:30:05"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:30:05"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:30:05"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:30:05"}
+{"level":"info","msg":"START SYNC","time":"2020-06-03 18:30:41"}
+{"level":"info","msg":"Init client success","time":"2020-06-03 18:30:41"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:30:42"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:30:42"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:30:42"}
+{"level":"info","msg":"START SYNC","time":"2020-06-03 18:31:21"}
+{"level":"info","msg":"Init client success","time":"2020-06-03 18:31:21"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:31:21"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:31:21"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:31:21"}
+{"level":"info","msg":"START SYNC","time":"2020-06-03 18:32:31"}
+{"level":"info","msg":"Init client success","time":"2020-06-03 18:32:31"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-03 18:32:31"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-03 18:32:31"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-03 18:32:31"}
+{"level":"info","msg":"START SYNC","time":"2020-06-04 09:50:15"}
+{"level":"info","msg":"Init client success","time":"2020-06-04 09:50:15"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-04 09:50:15"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-04 09:50:15"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-04 09:50:15"}
+{"level":"info","msg":"START SYNC","time":"2020-06-04 09:51:35"}
+{"level":"info","msg":"Init client success","time":"2020-06-04 09:51:35"}
+{"level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-04 09:51:35"}
+{"level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-04 09:51:35"}
+{"level":"info","msg":"sync machineinfo success","time":"2020-06-04 09:51:35"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/cmd/main.go:88","func":"main.main.func1","level":"info","msg":"START SYNC","time":"2020-06-04 09:56:10"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/cmd/main.go:93","func":"main.main.func1","level":"info","msg":"Init client success","time":"2020-06-04 09:56:10"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/consul/consul.go:48","func":"github.com/gsakun/consul-sync/consul.ConsulRegister","level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-04 09:56:11"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/handler/handler.go:37","func":"github.com/gsakun/consul-sync/handler.Syncdata","level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-04 09:56:11"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/handler/handler.go:63","func":"github.com/gsakun/consul-sync/handler.Syncdata","level":"info","msg":"sync machineinfo success","time":"2020-06-04 09:56:11"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/cmd/main.go:88","func":"main.main.func1","level":"info","msg":"START SYNC","time":"2020-06-04 10:05:06"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/cmd/main.go:93","func":"main.main.func1","level":"info","msg":"Init client success","time":"2020-06-04 10:05:06"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/consul/consul.go:48","func":"github.com/gsakun/consul-sync/consul.ConsulRegister","level":"error","msg":"Registry service \u0026{test1-172.16.10.10  9100 map[role:test test:test] 172.16.10.10} failed","time":"2020-06-04 10:05:06"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/handler/handler.go:37","func":"github.com/gsakun/consul-sync/handler.Syncdata","level":"error","msg":"Register Unexpected response code: 400 (Missing service name) failed errinfo %!v(MISSING)","time":"2020-06-04 10:05:06"}
+{"file":"D:/mygo/pkg/mod/github.com/gsakun/consul-sync@v0.0.0-20200603075330-35410ac0e13c/handler/handler.go:63","func":"github.com/gsakun/consul-sync/handler.Syncdata","level":"info","msg":"sync machineinfo success","time":"2020-06-04 10:05:06"}
