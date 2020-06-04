@@ -9,11 +9,11 @@ import (
 
 // Service define struct use for parse httprequest
 type Service struct {
-	ID      string                 `json:"id"`
-	Name    string                 `json:"name"`
-	Port    int                    `json:"port"`
-	Tags    map[string]interface{} `json:"tags"`
-	Address string                 `json:"address"`
+	ID      string            `json:"id"`
+	Name    string            `json:"name"`
+	Port    int               `json:"port"`
+	Tags    map[string]string `json:"tags"`
+	Address string            `json:"address"`
 }
 
 // InitClient use for init consulagent client
