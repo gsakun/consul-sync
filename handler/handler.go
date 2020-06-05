@@ -42,30 +42,19 @@ func Syncdata(db *sql.DB, client *consulapi.Client) (errnum int, err error) {
 					errnum++
 				}
 			} else if monitor == 2 {
-				serviceid := md5V3(fmt.Sprintf("%s-%s", hostname, ip))
-				err := consul.ConsulFindServer(serviceid, client)
+				err := register(hostname, ip, labels, monitor, db, client)
 				if err != nil {
-					err := register(hostname, ip, labels, monitor, db, client)
-					if err != nil {
-						log.Errorf("Register %s-%s failed errinfo %v", hostname, ip, err)
-						errnum++
-					}
-				} else {
-					err := consul.ConsulDeRegister(serviceid, client)
-					if err != nil {
-						log.Errorf("Deregister service %s failed", serviceid)
-						errnum++
-					} else {
-						err := register(hostname, ip, labels, monitor, db, client)
-						if err != nil {
-							log.Errorf("Register %s failed errinfo %v", err)
-						}
-					}
+					log.Errorf("Register %s-%s failed errinfo %v", hostname, ip, err)
+					errnum++
 				}
 			} else if monitor == 3 {
 				serviceid := md5V3(fmt.Sprintf("%s-%s", hostname, ip))
+				err := consul.ConsulFindServer(serviceid, client)
+				if err != nil {
+					log.Errorf("ERR %v", err)
+				}
 				log.Infof("Service id is %s,Deregister it", serviceid)
-				err := consul.ConsulDeRegister(serviceid, client)
+				err = consul.ConsulDeRegister(serviceid, client)
 				if err != nil {
 					log.Errorf("Deregister service %s failed", serviceid)
 					errnum++
@@ -110,6 +99,8 @@ func register(hostname, ip, labels string, monitor int, db *sql.DB, client *cons
 		case float64:
 			service.Port = int(port.(float64))
 		}
+	} else {
+		service.Port = 9100
 	}
 	var stringmap map[string]string = make(map[string]string)
 	for key, value := range m {

@@ -43,8 +43,11 @@ func ConsulRegister(service *Service, client *consulapi.Client) error {
 	}
 	registration.Tags = tags
 	registration.Address = service.Address
-	log.Infoln(registration)
-	err := client.Agent().ServiceRegister(registration)
+	registration.EnableTagOverride = true
+	//log.Infoln(registration)
+	err := client.Agent().ServiceRegisterOpts(registration, consulapi.ServiceRegisterOpts{
+		ReplaceExistingChecks: true,
+	})
 	if err != nil {
 		log.Errorf(" %v failed,errinfo %v", registration, err)
 		return err
@@ -67,10 +70,12 @@ func ConsulDeRegister(service string, client *consulapi.Client) error {
 // ConsulFindServer use for query service in consul
 func ConsulFindServer(service string, client *consulapi.Client) error {
 	// 获取指定service
-	_, _, err := client.Agent().Service(service, nil)
+	serviceinfo, meta, err := client.Agent().Service(service, nil)
 	if err != nil {
 		log.Errorf("Query specified service %s error : %v ", service, err)
 		return fmt.Errorf("Query specified service %s error : %v ", service, err)
 	}
+	log.Infof("Service Info %v", *serviceinfo)
+	log.Infof("Meta %v", meta)
 	return nil
 }
