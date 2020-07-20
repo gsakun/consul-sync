@@ -1,0 +1,3 @@
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/main.go:88","func":"main.main.func1","level":"info","msg":"START SYNC","time":"2020-06-22 11:11:33"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/main.go:93","func":"main.main.func1","level":"info","msg":"Init client success","time":"2020-06-22 11:11:33"}
+{"file":"D:/mygo/src/github.com/gsakun/consul-sync/handler/handler.go:76","func":"github.com/gsakun/consul-sync/handler.Syncdata","level":"info","msg":"sync machineinfo success","time":"2020-06-22 11:11:33"}

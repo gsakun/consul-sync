@@ -82,7 +82,7 @@ func main() {
 		db, err := db.Init(*dbaddress, *maxconn, *maxidle)
 		if err != nil {
 			log.Errorf("ping db fail:%v", err)
-			time.Sleep(60 * time.Second)
+			time.Sleep(30 * time.Second)
 		} else {
 			defer db.Close()
 			log.Infoln("START SYNC")
@@ -101,6 +101,7 @@ func main() {
 					time.Sleep(60 * time.Second)
 				}
 			}
+			time.Sleep(time.Duration(int64(*interval)) * time.Second)
 		}
 	}()
 
