@@ -80,11 +80,11 @@ func main() {
 
 	go func() {
 		db, err := db.Init(*dbaddress, *maxconn, *maxidle)
+		defer db.Close()
 		if err != nil {
 			log.Errorf("ping db fail:%v", err)
 			time.Sleep(30 * time.Second)
 		} else {
-			defer db.Close()
 			log.Infoln("START SYNC")
 			client, err := consul.InitClient(*consuladdress)
 			if err != nil {
