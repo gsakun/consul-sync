@@ -97,11 +97,11 @@ func main() {
 				} else {
 					if errnum == 0 {
 						time.Sleep(time.Duration(*interval) * time.Second)
+					} else {
+						time.Sleep(60 * time.Second)
 					}
-					time.Sleep(60 * time.Second)
 				}
 			}
-			time.Sleep(time.Duration(int64(*interval)) * time.Second)
 		}
 	}()
 
