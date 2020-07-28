@@ -81,18 +81,20 @@ func main() {
 	go func() {
 		for {
 			db, err := db.Init(*dbaddress, *maxconn, *maxidle)
-			defer db.Close()
 			if err != nil {
 				log.Errorf("ping db fail:%v", err)
+				db.Close()
 				time.Sleep(30 * time.Second)
 			} else {
 				log.Infoln("START SYNC")
 				client, err := consul.InitClient(*consuladdress)
 				if err != nil {
+					db.Close()
 					time.Sleep(60 * time.Second)
 				} else {
 					log.Infoln("Init client success")
 					errnum, err := handler.Syncdata(db, client)
+					db.Close()
 					if err != nil {
 						time.Sleep(60 * time.Second)
 					} else {
