@@ -79,26 +79,28 @@ func main() {
 	kingpin.Parse()
 
 	go func() {
-		db, err := db.Init(*dbaddress, *maxconn, *maxidle)
-		defer db.Close()
-		if err != nil {
-			log.Errorf("ping db fail:%v", err)
-			time.Sleep(30 * time.Second)
-		} else {
-			log.Infoln("START SYNC")
-			client, err := consul.InitClient(*consuladdress)
+		for {
+			db, err := db.Init(*dbaddress, *maxconn, *maxidle)
+			defer db.Close()
 			if err != nil {
-				time.Sleep(60 * time.Second)
+				log.Errorf("ping db fail:%v", err)
+				time.Sleep(30 * time.Second)
 			} else {
-				log.Infoln("Init client success")
-				errnum, err := handler.Syncdata(db, client)
+				log.Infoln("START SYNC")
+				client, err := consul.InitClient(*consuladdress)
 				if err != nil {
 					time.Sleep(60 * time.Second)
 				} else {
-					if errnum == 0 {
-						time.Sleep(time.Duration(*interval) * time.Second)
-					} else {
+					log.Infoln("Init client success")
+					errnum, err := handler.Syncdata(db, client)
+					if err != nil {
 						time.Sleep(60 * time.Second)
+					} else {
+						if errnum == 0 {
+							time.Sleep(time.Duration(*interval) * time.Second)
+						} else {
+							time.Sleep(60 * time.Second)
+						}
 					}
 				}
 			}
